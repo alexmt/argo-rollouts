@@ -5,6 +5,8 @@
 ####################################################################################################
 FROM golang:1.10.3 as builder
 
+ARG DOCKER_IMAGE_NAME=docker.intuit.com/dev/deploy/argo-rollouts/service/argo-rollouts:latest
+
 RUN apt-get update && apt-get install -y \
     git \
     make \
