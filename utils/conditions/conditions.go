@@ -17,6 +17,7 @@ import (
 	"github.com/argoproj/argo-rollouts/pkg/apis/rollouts/v1alpha1"
 	"github.com/argoproj/argo-rollouts/utils/defaults"
 	logutil "github.com/argoproj/argo-rollouts/utils/log"
+	"encoding/json"
 )
 
 const (
@@ -251,7 +252,10 @@ func ComputeStepHash(rollout *v1alpha1.Rollout) string {
 // be safe encoded to avoid bad words.
 func ComputeGenerationHash(spec v1alpha1.RolloutSpec) string {
 	rolloutSpecHasher := fnv.New32a()
-	hashutil.DeepHashObject(rolloutSpecHasher, spec)
+	specBytes, _ := json.Marshal(spec)
+	var remarshalledSpec v1alpha1.RolloutSpec
+	json.Unmarshal(specBytes, &remarshalledSpec)
+	hashutil.DeepHashObject(rolloutSpecHasher, remarshalledSpec)
 	return rand.SafeEncodeString(fmt.Sprint(rolloutSpecHasher.Sum32()))
 }
 

@@ -762,6 +762,13 @@ func TestComputeGenerationHash(t *testing.T) {
 	roPausedHash := ComputeGenerationHash(roPaused.Spec)
 
 	assert.NotEqual(t, baseline, roPausedHash)
+
+	roCopy := ro.DeepCopy()
+	roCopy.Spec.Template.Spec.Containers[0].Args = []string{}
+	roCopyHash := ComputeGenerationHash(roCopy.Spec)
+	assert.Equal(t, baseline, roCopyHash)
+
+
 }
 
 func TestComputeStepHash(t *testing.T) {
