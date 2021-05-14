@@ -24,3 +24,4 @@ ${kust_cmd} "${SRCROOT}/manifests/cluster-install" >> "${SRCROOT}/manifests/inst
 
 echo "${AUTOGENMSG}" > "${SRCROOT}/manifests/namespace-install.yaml"
 ${kust_cmd} "${SRCROOT}/manifests/namespace-install" >> "${SRCROOT}/manifests/namespace-install.yaml"
+${kust_cmd} "${SRCROOT}/manifests/notifications" > "${SRCROOT}/manifests/notifications-install.yaml"

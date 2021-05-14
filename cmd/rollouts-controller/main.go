@@ -135,6 +135,7 @@ func newCommand() *cobra.Command {
 			clusterDynamicInformerFactory := dynamicinformer.NewFilteredDynamicSharedInformerFactory(dynamicClient, resyncDuration, metav1.NamespaceAll, instanceIDTweakListFunc)
 			// 3. We finally need an istio dynamic informer factory which does not use a tweakListFunc.
 			istioDynamicInformerFactory := dynamicinformer.NewFilteredDynamicSharedInformerFactory(dynamicClient, resyncDuration, namespace, nil)
+			configMapInformer, secretInformer := kubeInformerFactory.Core().V1().ConfigMaps(), kubeInformerFactory.Core().V1().Secrets()
 			cm := controller.NewManager(
 				namespace,
 				kubeClient,
@@ -153,6 +154,8 @@ func newCommand() *cobra.Command {
 				tolerantinformer.NewTolerantClusterAnalysisTemplateInformer(clusterDynamicInformerFactory),
 				istioDynamicInformerFactory.ForResource(istioutil.GetIstioVirtualServiceGVR()).Informer(),
 				istioDynamicInformerFactory.ForResource(istioutil.GetIstioDestinationRuleGVR()).Informer(),
+				configMapInformer,
+				secretInformer,
 				resyncDuration,
 				instanceID,
 				metricsPort,
