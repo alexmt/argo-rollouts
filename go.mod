@@ -34,7 +34,7 @@ require (
 	github.com/valyala/fasttemplate v1.2.1
 	golang.org/x/tools v0.1.0 // indirect
 	google.golang.org/genproto v0.0.0-20201110150050-8816d57aaa9a
-	google.golang.org/grpc v1.33.1
+	google.golang.org/grpc v1.38.0
 	google.golang.org/grpc/examples v0.0.0-20210331235824-f6bb3972ed15 // indirect
 	google.golang.org/protobuf v1.25.0
 	gopkg.in/yaml.v2 v2.4.0
